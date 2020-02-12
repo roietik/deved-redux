@@ -1,12 +1,12 @@
 
 const counterReducer = (state = 0 , action) => {
     if (action.type === "INC") {
-        return state + 1
+        return state + action.payload
     }
     if (action.type === "DEC") {
-        return state - 1
+        return state - action.payload
     }
-    return state;
+    return state; 
 }
 
 export default counterReducer;
