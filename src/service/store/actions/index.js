@@ -43,11 +43,3 @@ export const del = idx => {
         idx: idx
     };
 };
-
-export const eventVal = (idx, e) => {
-    return {
-        type: 'EVENT_VAL',
-        idx: idx,
-        e: e
-    };
-};

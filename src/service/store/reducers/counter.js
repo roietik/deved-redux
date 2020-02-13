@@ -30,17 +30,9 @@ const counterReducer = (state = initialState, action) => {
         const counts = state.counts.map((count, idx) => idx === action.idx ? action.val : count)
         return  {counts}
     }
-    if (action.type === "EVENT_VAL") {
-        
-        console.log("reducer: ", action.idx, action.e);
-
-        return  {
-            counts: state.counts,
-            eventVal: action.e
-        }    }
     return state; 
 
-    //
+    //FIND
 }
 
 export default counterReducer;
