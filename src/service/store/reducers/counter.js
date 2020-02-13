@@ -36,7 +36,7 @@ const counterReducer = (state = initialState, action) => {
 
         return  {
             counts: state.counts,
-            eventVal: Number(action.e.target.value)
+            eventVal: action.e
         }    }
     return state; 
 
