@@ -1,20 +1,20 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import Counter from './components/Counter';
 import { useDispatch } from 'react-redux';
-import { inc, dec } from './service/store/actions'
-
+import { add } from './service/store/actions';
 
 function App() {
-  const dispatch = useDispatch();
-  console.log('dis:', dispatch(inc))
+
+  const dispatch = useDispatch(),
+        refInput = useRef(),
+        getRefVal = () => {return refInput.current.value};
+
   return (
     <div>
       <h1>DevEd Redux</h1>
       <Counter>
-        <div className="buttons">
-          <button onClick={() => dispatch(inc(5))}>+</button>
-          <button onClick={() => dispatch(dec(5))}>-</button>
-        </div>
+        <input type="number" ref={refInput} />
+        <button onClick={() => dispatch(add(getRefVal()))}>add</button>
       </Counter>
     </div>
   )

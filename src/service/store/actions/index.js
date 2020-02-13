@@ -11,3 +11,16 @@ export const dec = num => {
         payload: num
     };
 };
+
+export const reset =() => {
+    return {
+        type: 'RESET'
+    };
+};
+
+export const add = val => {
+    return {
+        type: 'ADD',
+        payload: val
+    };
+};
