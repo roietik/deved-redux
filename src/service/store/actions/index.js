@@ -1,20 +1,32 @@
-export const inc = num => {
+export const inc = (num, idx) => {
     return {
         type: 'INC',
-        payload: num
+        payload: num,
+        idx: idx
     };
 };
 
-export const dec = num => {
+export const dec = (num, idx) => {
     return {
         type: 'DEC',
-        payload: num
+        payload: num,
+        idx: idx
     };
 };
 
-export const reset =() => {
+export const reset = idx => {
     return {
-        type: 'RESET'
+        type: 'RESET',
+        idx: idx
+    };
+};
+
+export const change = (idx, val) => {
+    console.log( 'actions:', val)
+    return {
+        type: 'CHANGE',
+        idx: idx,
+        val: val
     };
 };
 
@@ -22,5 +34,20 @@ export const add = val => {
     return {
         type: 'ADD',
         payload: val
+    };
+};
+
+export const del = idx => {
+    return {
+        type: 'DEL',
+        idx: idx
+    };
+};
+
+export const eventVal = (idx, e) => {
+    return {
+        type: 'EVENT_VAL',
+        idx: idx,
+        e: e
     };
 };

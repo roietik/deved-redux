@@ -1,18 +1,46 @@
 
-const counterReducer = (state = 0 , action) => {
+const initialState = {
+    counts: [0,1,2],
+    eventVal: 0
+}
+
+const counterReducer = (state = initialState, action) => {
     if (action.type === "INC") {
-        return state + action.payload
+        const counts = state.counts.map((count, idx) => idx === action.idx ? count + action.payload : count)
+        return {counts}
     }
     if (action.type === "DEC") {
-        return state - action.payload
+        const counts = state.counts.map((count, idx) => idx === action.idx ? count - action.payload : count)
+        return {counts}
     }
     if (action.type === "RESET") {
-        return  0
+        const counts = state.counts.map((count, idx) => idx === action.idx ? 0 : count)
+        return {counts}
     }
     if (action.type === "ADD") {
-        return  action.payload
+        return  {
+            counts: [...state.counts, action.payload]
+        }
     }
+    if (action.type === "DEL") {
+        const counts = state.counts.filter((count, idx) => idx !== action.idx)
+        return {counts}
+    }
+    if (action.type === "CHANGE") {
+        const counts = state.counts.map((count, idx) => idx === action.idx ? action.val : count)
+        return  {counts}
+    }
+    if (action.type === "EVENT_VAL") {
+        
+        console.log("reducer: ", action.idx, action.e);
+
+        return  {
+            counts: state.counts,
+            eventVal: Number(action.e.target.value)
+        }    }
     return state; 
+
+    //
 }
 
 export default counterReducer;
