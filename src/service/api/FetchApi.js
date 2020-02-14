@@ -1,5 +1,5 @@
 
-const BASE_URL = "http://localhost:3009/counts"
+const BASE_URL = "http://localhost:3015/counts"
 
 const FetchApi = {
     getFetch: async function () {
@@ -16,7 +16,7 @@ const FetchApi = {
         return items;
     },
     addFetch: async function (itemToAdd) {
-        console.log('addFetch:' ,  typeof itemToAdd);
+        console.log('addFetch:' , itemToAdd);
         const res = await fetch(BASE_URL, {
             method: "POST",
             headers: {

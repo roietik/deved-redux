@@ -1,7 +1,10 @@
 import FetchApi from '../../api/FetchApi';
-import uuid from 'react-uuid';
 
-FetchApi.getFetch().then(items => console.log(items)).catch(isError => console.log(isError))
+FetchApi.getFetch()
+.then(items => {
+    console.log(items)
+})
+.catch(isError => console.log(isError))
 
 const initialState = {
     counts: [
@@ -33,22 +36,18 @@ const counterReducer = (state = initialState, action) => {
         const counts = state.counts.map((count, idx) => idx === action.idx ? {num: 0, id: count.id} : count)
         return {counts}
     }
+
     if (action.type === "ADD") {
-        return  {
-            counts: [...state.counts, {num: action.payload, id: uuid()}]
-        }
+        FetchApi.addFetch({num: action.payload})
+        .then(
+            () => {
+                return  {
+                    counts: [...state.counts, {num: action.payload}]
+                }
+            }
+        )
+        .catch(err => console.log(err))
     }
-    // if (action.type === "ADD") {
-    //     FetchApi.addFetch(action.payload)
-    //     .then(
-    //         () => {
-    //             return  {
-    //                 counts: [...state.counts, {num: action.payload }]
-    //             }
-    //         }
-    //     )
-    //     .catch(err => console.log(err))
-    // }
 
     if (action.type === "DEL") {
         const counts = state.counts.filter((count, idx) => idx !== action.idx)
