@@ -1,67 +1,73 @@
-import FetchApi from '../../api/FetchApi';
-import {INC, DEC, RESET, ADD, DEL, CHANGE} from "../actions"
+import { INC, DEC, RESET, ADD, DEL, CHANGE, ALL } from "../actions";
 
-FetchApi.getFetch()
-.then(items => {
-    console.log(items)
-})
-.catch(isError => console.log(isError))
+// const initialState = {
+//   counts: [
+//     {
+//       num: "0",
+//       id: "NyVdsdN"
+//     },
+//     {
+//       num: "1",
+//       id: "NyVdsdN"
+//     },
+//     {
+//       num: "2",
+//       id: "NyVdsdN"
+//     }
+//   ]
+// };
 
-const initialState = {
-    counts: [
-        {
-        num: "0",
-        id: "NyVdsdN"
-        },
-        {
-        num: "1",
-        id: "NyVdsdN"
-        },
-        {
-        num: "2",
-        id: "NyVdsdN"
-        }
-    ]
-}
-
-const counterReducer = (state = initialState, action) => {
-    if (action.type === INC) {
-        const counts = state.counts.map((count, idx) => idx === action.idx ? {num: (Number(count.num) + Number(action.payload)), id: count.id} : count)
-        return {counts}
-    }
-    if (action.type === DEC) {
-        const counts = state.counts.map((count, idx) => idx === action.idx ? {num: (Number(count.num) - Number(action.payload)), id: count.id} : count)
-        return {counts}
-    }
-    if (action.type === RESET) {
-        const counts = state.counts.map((count, idx) => idx === action.idx ? {num: 0, id: count.id} : count)
-        return {counts}
+const counterReducer = (state = [], action) => {
+  switch (action.type) {
+    case INC: {
+      const counts = state.counts.map((count, idx) =>
+        idx === action.idx
+          ? { num: Number(count.num) + Number(action.payload), id: count.id }
+          : count
+      );
+      return { counts };
     }
 
-    if (action.type === ADD) {
-        FetchApi.addFetch({num: action.payload})
-        .then(
-            () => {
-                return  {
-                    counts: [...state.counts, {num: action.payload}]
-                }
-            }
-        )
-        .catch(err => console.log(err))
+    case DEC: {
+      const counts = state.counts.map((count, idx) =>
+        idx === action.idx
+          ? { num: Number(count.num) - Number(action.payload), id: count.id }
+          : count
+      );
+      return { counts };
     }
-
-    if (action.type === DEL) {
-        const counts = state.counts.filter((count, idx) => idx !== action.idx)
-        return {counts}
+    case RESET: {
+      const counts = state.counts.map((count, idx) =>
+        idx === action.idx ? { num: 0, id: count.id } : count
+      );
+      return { counts };
     }
-    if (action.type === CHANGE) {
-        const counts = state.counts.map((count, idx) => idx === action.idx ? {num: action.val, id: count.id} : count)
-
-        return  {counts}
+    case ADD: {
+      return {
+        counts: [...state.counts, { num: action.payload }]
+      };
     }
-    return state; 
+    case DEL: {
+      const counts = state.counts.filter((count, idx) => idx !== action.idx);
+      return { counts };
+    }
+    case CHANGE: {
+      const counts = state.counts.map((count, idx) =>
+        idx === action.idx ? { num: action.val, id: count.id } : count
+      );
+      return { counts };
+    }
+    case ALL: {
+      console.log("ALL: ", action.state);
+      return {
+        counts: action.state
+      };
+    }
+    default:
+      return state;
+  }
 
-    //FIND
-}
+  //FIND
+};
 
 export default counterReducer;
