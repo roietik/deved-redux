@@ -1,4 +1,5 @@
 import FetchApi from '../../api/FetchApi';
+import {INC, DEC, RESET, ADD, DEL, CHANGE} from "../actions"
 
 FetchApi.getFetch()
 .then(items => {
@@ -24,20 +25,20 @@ const initialState = {
 }
 
 const counterReducer = (state = initialState, action) => {
-    if (action.type === "INC") {
+    if (action.type === INC) {
         const counts = state.counts.map((count, idx) => idx === action.idx ? {num: (Number(count.num) + Number(action.payload)), id: count.id} : count)
         return {counts}
     }
-    if (action.type === "DEC") {
+    if (action.type === DEC) {
         const counts = state.counts.map((count, idx) => idx === action.idx ? {num: (Number(count.num) - Number(action.payload)), id: count.id} : count)
         return {counts}
     }
-    if (action.type === "RESET") {
+    if (action.type === RESET) {
         const counts = state.counts.map((count, idx) => idx === action.idx ? {num: 0, id: count.id} : count)
         return {counts}
     }
 
-    if (action.type === "ADD") {
+    if (action.type === ADD) {
         FetchApi.addFetch({num: action.payload})
         .then(
             () => {
@@ -49,11 +50,11 @@ const counterReducer = (state = initialState, action) => {
         .catch(err => console.log(err))
     }
 
-    if (action.type === "DEL") {
+    if (action.type === DEL) {
         const counts = state.counts.filter((count, idx) => idx !== action.idx)
         return {counts}
     }
-    if (action.type === "CHANGE") {
+    if (action.type === CHANGE) {
         const counts = state.counts.map((count, idx) => idx === action.idx ? {num: action.val, id: count.id} : count)
 
         return  {counts}
