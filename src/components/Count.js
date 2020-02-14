@@ -1,22 +1,22 @@
-import React, { useRef, useState }  from 'react';
+import React, { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { inc, dec, reset, del, change } from '../service/store/actions';
 
-export default function Count({count, idx}) {
+export default function Count({ count, idx }) {
 
-    const dispatch = useDispatch();
-    const changeRef = useRef();
+    const [event, setEvent] = useState(" "),
 
-    const [event, setEvent] = useState(" ");
+        dispatch = useDispatch(),
+        changeRef = useRef(),
 
-    const handleSubmit = e => {
-        e.preventDefault();
-        dispatch(change(idx, event))
-
-    }
-    const handleChange = e => {
-        setEvent(e.target.value)
-    }
+        handleSubmit = e => {
+            e.preventDefault();
+            dispatch(change(idx, event))
+            changeRef.current.value = " "
+        },
+        handleChange = e => {
+            setEvent(e.target.value)
+        }
 
     return (
         <div>
@@ -26,7 +26,7 @@ export default function Count({count, idx}) {
             <button onClick={() => dispatch(reset(idx))}>reset</button>
             <button onClick={() => dispatch(del(idx))}>del</button>
             <form className="change" onSubmit={handleSubmit}>
-                <input className="counterInput" type="number"  ref={changeRef} defaultValue={event} onChange={handleChange} required />
+                <input className="counterInput" type="number" ref={changeRef} defaultValue={event} onChange={handleChange} />
                 <button type="submit" value="Submit">change</button>
             </form>
         </div>

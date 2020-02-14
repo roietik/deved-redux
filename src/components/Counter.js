@@ -16,7 +16,7 @@ function Counter({ children }) {
 
                 return (
                     <React.Fragment key={uuid()}>
-                        <Count key={uuid()} count={count} idx={idx}/>
+                        <Count key={uuid()} count={count.num} idx={idx}/>
                     </React.Fragment>
                 )
             })}
