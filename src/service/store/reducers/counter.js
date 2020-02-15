@@ -17,7 +17,7 @@ import { INC, DEC, RESET, ADD, DEL, CHANGE, ALL } from "../actions";
 //   ]
 // };
 
-const counterReducer = (state = [], action) => {
+const counterReducer = (state = {}, action) => {
   switch (action.type) {
     case INC: {
       const counts = state.counts.map((count, idx) =>

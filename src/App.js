@@ -1,13 +1,12 @@
 import React, { useRef, useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { add, all } from "./service/store/actions";
-import counterReducer from "./service/store/reducers";
 
 import Counter from "./components/Counter";
 import { useDispatch } from "react-redux";
 import FetchApi from "./service/api/FetchApi";
 
-function App() {
+function App({ counterReducer }) {
   const [input, setInput] = useState(" "),
     dispatch = useDispatch(),
     refAdd = useRef(),
@@ -32,7 +31,7 @@ function App() {
   return (
     <div>
       <h1>DevEd Redux</h1>
-      <Counter counterReducer={this.props.counterReducer}>
+      <Counter counterReducer={counterReducer}>
         <div className="add">
           <h2>Add: </h2>
           <form className="add" onSubmit={handleSubmit}>
@@ -52,7 +51,6 @@ function App() {
     </div>
   );
 }
-console.log("counterReducer", counterReducer);
 
 const mapStateToProps = state => {
   console.log("mapStateToProps", state);
@@ -60,6 +58,10 @@ const mapStateToProps = state => {
     counterReducer: state.counterReducer
   };
 };
-const mapDispatchToProps = { all };
+const mapDispatchToProps = dispatch => {
+  return {
+    all: () => dispatch(all())
+  };
+};
 
 export const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);
