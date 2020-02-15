@@ -5,20 +5,20 @@ import {
   dec,
   reset,
   fetchDel,
-  change
+  fetchChange
 } from "../service/store/actions/counterActions";
 
 export default function Count({ count, idx }) {
-  const [event, setEvent] = useState(" "),
+  const [valFromEvent, setValFromEvent] = useState(" "),
     dispatch = useDispatch(),
     changeRef = useRef(),
     handleSubmit = e => {
       e.preventDefault();
-      dispatch(change(idx, event));
+      dispatch(fetchChange(valFromEvent, count, idx));
       changeRef.current.value = " ";
     },
     handleChange = e => {
-      setEvent(e.target.value);
+      setValFromEvent(e.target.value);
     };
 
   return (
@@ -33,7 +33,7 @@ export default function Count({ count, idx }) {
           className="counterInput"
           type="number"
           ref={changeRef}
-          defaultValue={event}
+          defaultValue={valFromEvent}
           onChange={handleChange}
         />
         <button type="submit" value="Submit">

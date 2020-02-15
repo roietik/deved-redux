@@ -1,6 +1,8 @@
 import {
   FETCH_ALL,
   FETCH_DEL,
+  FETCH_CHANGE,
+  FETCH_ADD,
   ADD,
   CHANGE,
   DEC,
@@ -52,6 +54,42 @@ export const del = idx => {
   return {
     type: DEL,
     idx: idx
+  };
+};
+
+export const fetchAdd = (valFromEvent, idx) => {
+  console.log("fetchAdd item", valFromEvent);
+  return dispatch => {
+    FetchApi.addFetch({ num: valFromEvent })
+      .then(items => {
+        console.log(" fetchAdd addFetch", items);
+        dispatch({
+          type: FETCH_ADD,
+          payload: idx,
+          valFromEvent
+        });
+      })
+      .catch(isError => {
+        console.log(isError);
+      });
+  };
+};
+
+export const fetchChange = (valFromEvent, count, idx) => {
+  console.log("fetchChange item", valFromEvent);
+  return dispatch => {
+    FetchApi.replaceFetch({ num: valFromEvent, id: count.id })
+      .then(items => {
+        console.log(" fetchChange replaceFetch", items);
+        dispatch({
+          type: FETCH_CHANGE,
+          payload: idx,
+          valFromEvent
+        });
+      })
+      .catch(isError => {
+        console.log(isError);
+      });
   };
 };
 

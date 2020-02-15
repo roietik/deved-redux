@@ -2,20 +2,20 @@ import React, { useRef, useState, useEffect } from "react";
 import uuid from "react-uuid";
 import Count from "./Count";
 import { useDispatch, useSelector } from "react-redux";
-import { add, fetchAll } from "../service/store/actions/counterActions";
+import { fetchAdd, fetchAll } from "../service/store/actions/counterActions";
 
 function Counter() {
   const counter = useSelector(state => state.counter);
-  const [input, setInput] = useState(" ");
+  const [valFromEvent, setValFromEvent] = useState(" ");
   const dispatch = useDispatch();
   const refAdd = useRef();
   const handleSubmit = e => {
     e.preventDefault();
-    dispatch(add(input));
+    dispatch(fetchAdd(valFromEvent));
     refAdd.current.value = " ";
   };
   const handleChange = e => {
-    setInput(e.target.value);
+    setValFromEvent(e.target.value);
   };
 
   useEffect(() => {
@@ -40,7 +40,7 @@ function Counter() {
               className="counterInput"
               type="text"
               ref={refAdd}
-              defaultValue={input}
+              defaultValue={valFromEvent}
               onChange={handleChange}
             />
             <button type="submit" value="Submit">

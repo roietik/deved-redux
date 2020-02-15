@@ -6,8 +6,11 @@ export const RESET = "RESET";
 export const CHANGE = "CHANGE";
 export const ADD = "ADD";
 export const DEL = "DEL";
+
 export const FETCH_ALL = "FETCH_ALL";
 export const FETCH_DEL = "FETCH_DEL";
+export const FETCH_CHANGE = "FETCH_CHANGE";
+export const FETCH_ADD = "FETCH_ADD";
 
 const initialState = {
   counts: [
@@ -55,6 +58,19 @@ const counterReducer = (state = initialState, action) => {
     case CHANGE: {
       const counts = state.counts.map((count, idx) =>
         idx === action.idx ? { num: action.val, id: count.id } : count
+      );
+      return { ...state, counts };
+    }
+    case FETCH_ADD: {
+      const counts = [...state.counts];
+      counts.push({ num: action.valFromEvent, id: uuid() });
+      return { ...state, counts };
+    }
+    case FETCH_CHANGE: {
+      const counts = state.counts.map((count, idx) =>
+        idx === action.payload
+          ? { num: action.valFromEvent, id: count.id }
+          : count
       );
       return { ...state, counts };
     }
