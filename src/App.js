@@ -7,6 +7,8 @@ import { useDispatch } from "react-redux";
 import FetchApi from "./service/api/FetchApi";
 
 function App({ counterReducer }) {
+  const [wtf, setWtf] = useState(" ");
+
   const [input, setInput] = useState(" "),
     dispatch = useDispatch(),
     refAdd = useRef(),
@@ -22,8 +24,9 @@ function App({ counterReducer }) {
   useEffect(() => {
     FetchApi.getFetch()
       .then(items => {
-        console.log(items);
-        this.props.all(items);
+        console.log("useEffect", items);
+        setWtf(items);
+        console.log("wtf from useEffect", wtf);
       })
       .catch(isError => console.log(isError));
   }, []);
@@ -45,6 +48,7 @@ function App({ counterReducer }) {
             <button type="submit" value="Submit">
               add
             </button>
+            {console.log("wtf from component", wtf)}
           </form>
         </div>
       </Counter>
@@ -59,6 +63,8 @@ const mapStateToProps = state => {
   };
 };
 const mapDispatchToProps = dispatch => {
+  console.log("mapDispatchToProps", dispatch);
+
   return {
     all: () => dispatch(all())
   };
