@@ -27,7 +27,7 @@ function Counter() {
       {counter.counts.map((count, idx) => {
         return (
           <React.Fragment key={uuid()}>
-            <Count key={uuid()} count={count.num} idx={idx} />
+            <Count key={uuid()} count={count} idx={idx} />
           </React.Fragment>
         );
       })}

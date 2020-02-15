@@ -4,7 +4,7 @@ import {
   inc,
   dec,
   reset,
-  del,
+  fetchDel,
   change
 } from "../service/store/actions/counterActions";
 
@@ -23,11 +23,11 @@ export default function Count({ count, idx }) {
 
   return (
     <div>
-      <h2>Counter: {count}</h2>
+      <h2>Counter: {count.num}</h2>
       <button onClick={() => dispatch(inc(5, idx))}>+</button>
       <button onClick={() => dispatch(dec(5, idx))}>-</button>
       <button onClick={() => dispatch(reset(idx))}>reset</button>
-      <button onClick={() => dispatch(del(idx))}>del</button>
+      <button onClick={() => dispatch(fetchDel(count, idx))}>del</button>
       <form className="change" onSubmit={handleSubmit}>
         <input
           className="counterInput"

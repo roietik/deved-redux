@@ -7,19 +7,12 @@ export const CHANGE = "CHANGE";
 export const ADD = "ADD";
 export const DEL = "DEL";
 export const FETCH_ALL = "FETCH_ALL";
+export const FETCH_DEL = "FETCH_DEL";
 
 const initialState = {
   counts: [
     {
-      num: "0",
-      id: "NyVdsdN"
-    },
-    {
-      num: "1",
-      id: "NyVdsdN"
-    },
-    {
-      num: "2",
+      num: "Loading...",
       id: "NyVdsdN"
     }
   ]
@@ -64,6 +57,15 @@ const counterReducer = (state = initialState, action) => {
         idx === action.idx ? { num: action.val, id: count.id } : count
       );
       return { ...state, counts };
+    }
+    case FETCH_DEL: {
+      const counts = state.counts.filter(
+        (count, idx) => idx !== action.payload
+      );
+      return {
+        ...state,
+        counts: counts
+      };
     }
     case FETCH_ALL: {
       return {

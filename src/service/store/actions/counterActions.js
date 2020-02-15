@@ -1,5 +1,6 @@
 import {
   FETCH_ALL,
+  FETCH_DEL,
   ADD,
   CHANGE,
   DEC,
@@ -51,6 +52,23 @@ export const del = idx => {
   return {
     type: DEL,
     idx: idx
+  };
+};
+
+export const fetchDel = (count, idx) => {
+  console.log("fetchDel item", count);
+  return dispatch => {
+    FetchApi.removeFetch(count)
+      .then(items => {
+        console.log(" fetchDel removeFetch", items);
+        dispatch({
+          type: FETCH_DEL,
+          payload: idx
+        });
+      })
+      .catch(isError => {
+        console.log(isError);
+      });
   };
 };
 
