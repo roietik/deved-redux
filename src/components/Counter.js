@@ -3,16 +3,16 @@ import React from "react";
 import uuid from "react-uuid";
 import Count from "./Count";
 
-function Counter({ children, counterReducer }) {
+function Counter({ children, counterReducer, wtf }) {
   // const counterReducer = useSelector(state => state.counterReducer),
   //   isLogged = useSelector(state => state.loggedReducer),
   //   counts = counterReducer.counts;
 
-  console.log("counts from Counter", counterReducer);
+  console.log("counts from Counter", [wtf]);
 
   return (
     <div>
-      {counterReducer.map((count, idx) => {
+      {[...wtf].map((count, idx) => {
         return (
           <React.Fragment key={uuid()}>
             <Count key={uuid()} count={count.num} idx={idx} />

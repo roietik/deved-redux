@@ -34,7 +34,7 @@ function App({ counterReducer }) {
   return (
     <div>
       <h1>DevEd Redux</h1>
-      <Counter counterReducer={counterReducer}>
+      <Counter counterReducer={counterReducer} wtf={wtf}>
         <div className="add">
           <h2>Add: </h2>
           <form className="add" onSubmit={handleSubmit}>
