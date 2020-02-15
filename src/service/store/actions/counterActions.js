@@ -94,7 +94,7 @@ export const fetchDec = (val, obj, idx) => {
 
 export const fetchAdd = (valFromEvent, idx) => {
   return dispatch => {
-    FetchApi.addFetch({ num: valFromEvent })
+    FetchApi.addFetch({ num: Number(valFromEvent) })
       .then(() => {
         dispatch({
           type: FETCH_ADD,
@@ -126,7 +126,7 @@ export const fetchReset = (val, obj, idx) => {
 
 export const fetchChange = (valFromEvent, count, idx) => {
   return dispatch => {
-    FetchApi.replaceFetch({ num: valFromEvent, id: count.id })
+    FetchApi.replaceFetch({ num: Number(valFromEvent), id: count.id })
       .then(() => {
         dispatch({
           type: FETCH_CHANGE,

@@ -20,7 +20,7 @@ function Counter() {
 
   useEffect(() => {
     dispatch(fetchAll());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>
@@ -38,7 +38,7 @@ function Counter() {
           <form className="add" onSubmit={handleSubmit}>
             <input
               className="counterInput"
-              type="text"
+              type="number"
               ref={refAdd}
               defaultValue={valFromEvent}
               onChange={handleChange}

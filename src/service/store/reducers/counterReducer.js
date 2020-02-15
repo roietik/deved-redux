@@ -55,7 +55,7 @@ const counterReducer = (state = initialState, action) => {
       return { ...state, counts };
     }
     case DEL: {
-      const counts = state.counts.filter((count, idx) => idx !== action.idx);
+      const counts = state.counts.filter((_, idx) => idx !== action.idx);
       return { ...state, counts };
     }
     case CHANGE: {
@@ -102,9 +102,7 @@ const counterReducer = (state = initialState, action) => {
       return { ...state, counts };
     }
     case FETCH_DEL: {
-      const counts = state.counts.filter(
-        (count, idx) => idx !== action.payload
-      );
+      const counts = state.counts.filter((_, idx) => idx !== action.payload);
       return {
         ...state,
         counts: counts

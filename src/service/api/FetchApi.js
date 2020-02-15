@@ -15,7 +15,6 @@ const FetchApi = {
     return items;
   },
   addFetch: async function(itemToAdd) {
-    console.log("addFetch:", itemToAdd);
     const res = await fetch(BASE_URL, {
       method: "POST",
       headers: {
@@ -47,7 +46,6 @@ const FetchApi = {
     return replacedItem;
   },
   removeFetch: async function(itemRemove) {
-    console.log("itemRemove from removeFetch", itemRemove);
     if (!itemRemove.id) {
       throw new Error("Item has to have an id to be updated");
     }
