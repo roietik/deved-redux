@@ -55,7 +55,7 @@ function App({ counterReducer }) {
 const mapStateToProps = state => {
   console.log("mapStateToProps", state);
   return {
-    counterReducer: state.counterReducer
+    counterReducer: state.counterReducer.counts
   };
 };
 const mapDispatchToProps = dispatch => {
