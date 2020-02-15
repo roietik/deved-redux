@@ -9,7 +9,7 @@ In the project directory, you can run:
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-### api % json-server --watch db.json -p 4033
+### json-server --watch db.json -p 4033
 
 Runs the json-server in the development mode.<br />
 Resources [http://localhost:4033/counts]
