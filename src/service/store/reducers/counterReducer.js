@@ -1,4 +1,12 @@
-import { INC, DEC, RESET, ADD, DEL, CHANGE, ALL } from "../actions";
+import uuid from "react-uuid";
+
+export const INC = "INC";
+export const DEC = "DEC";
+export const RESET = "RESET";
+export const CHANGE = "CHANGE";
+export const ADD = "ADD";
+export const DEL = "DEL";
+export const FETCH_ALL = "FETCH_ALL";
 
 const initialState = {
   counts: [
@@ -25,7 +33,7 @@ const counterReducer = (state = initialState, action) => {
           ? { num: Number(count.num) + Number(action.payload), id: count.id }
           : count
       );
-      return { counts };
+      return { ...state, counts };
     }
 
     case DEC: {
@@ -34,40 +42,38 @@ const counterReducer = (state = initialState, action) => {
           ? { num: Number(count.num) - Number(action.payload), id: count.id }
           : count
       );
-      return { counts };
+      return { ...state, counts };
     }
     case RESET: {
       const counts = state.counts.map((count, idx) =>
         idx === action.idx ? { num: 0, id: count.id } : count
       );
-      return { counts };
+      return { ...state, counts };
     }
     case ADD: {
-      return {
-        counts: [...state.counts, { num: action.payload }]
-      };
+      const counts = [...state.counts];
+      counts.push({ num: action.payload, id: uuid() });
+      return { ...state, counts };
     }
     case DEL: {
       const counts = state.counts.filter((count, idx) => idx !== action.idx);
-      return { counts };
+      return { ...state, counts };
     }
     case CHANGE: {
       const counts = state.counts.map((count, idx) =>
         idx === action.idx ? { num: action.val, id: count.id } : count
       );
-      return { counts };
+      return { ...state, counts };
     }
-    case ALL: {
-      console.log("ALL: ", action.state);
+    case FETCH_ALL: {
       return {
-        counts: action.state
+        ...state,
+        counts: action.payload
       };
     }
     default:
       return state;
   }
-
-  //FIND
 };
 
 export default counterReducer;

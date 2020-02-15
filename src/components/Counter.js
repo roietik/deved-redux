@@ -1,18 +1,30 @@
-import React from "react";
-// import { useSelector } from "react-redux";
+import React, { useRef, useState, useEffect } from "react";
 import uuid from "react-uuid";
 import Count from "./Count";
+import { useDispatch, useSelector } from "react-redux";
+import { add, fetchAll } from "../service/store/actions/counterActions";
 
-function Counter({ children, counterReducer, wtf }) {
-  // const counterReducer = useSelector(state => state.counterReducer),
-  //   isLogged = useSelector(state => state.loggedReducer),
-  //   counts = counterReducer.counts;
+function Counter() {
+  const counter = useSelector(state => state.counter);
+  const [input, setInput] = useState(" ");
+  const dispatch = useDispatch();
+  const refAdd = useRef();
+  const handleSubmit = e => {
+    e.preventDefault();
+    dispatch(add(input));
+    refAdd.current.value = " ";
+  };
+  const handleChange = e => {
+    setInput(e.target.value);
+  };
 
-  console.log("counts from Counter", [wtf]);
+  useEffect(() => {
+    dispatch(fetchAll());
+  }, []);
 
   return (
     <div>
-      {[...wtf].map((count, idx) => {
+      {counter.counts.map((count, idx) => {
         return (
           <React.Fragment key={uuid()}>
             <Count key={uuid()} count={count.num} idx={idx} />
@@ -20,7 +32,23 @@ function Counter({ children, counterReducer, wtf }) {
         );
       })}
 
-      <div className="actions">{children}</div>
+      <div className="actions">
+        <div className="add">
+          <h2>Add: </h2>
+          <form className="add" onSubmit={handleSubmit}>
+            <input
+              className="counterInput"
+              type="text"
+              ref={refAdd}
+              defaultValue={input}
+              onChange={handleChange}
+            />
+            <button type="submit" value="Submit">
+              add
+            </button>
+          </form>
+        </div>
+      </div>
       {/* {!isLogged && <p>Valuable information I shouldn't see</p>} */}
     </div>
   );

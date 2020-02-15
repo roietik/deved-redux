@@ -1,12 +1,13 @@
-// import FetchApi from "../../api/FetchApi";
-
-export const INC = "INC";
-export const DEC = "DEC";
-export const RESET = "RESET";
-export const CHANGE = "CHANGE";
-export const ADD = "ADD";
-export const DEL = "DEL";
-export const ALL = "ALL";
+import {
+  FETCH_ALL,
+  ADD,
+  CHANGE,
+  DEC,
+  DEL,
+  INC,
+  RESET
+} from "./../reducers/counterReducer";
+import FetchApi from "../../api/FetchApi";
 
 export const inc = (num, idx) => {
   return {
@@ -53,9 +54,22 @@ export const del = idx => {
   };
 };
 
-export const all = state => {
-  return {
-    type: ALL,
-    state: state
+// to jest inaczej bo funkcja asynchroniczna
+export const fetchAll = () => {
+  return dispatch => {
+    FetchApi.getFetch()
+      .then(items => {
+        dispatch({
+          type: FETCH_ALL,
+          payload: items
+        });
+      })
+      .catch(isError => {
+        console.log(isError);
+        dispatch({
+          type: FETCH_ALL,
+          payload: []
+        });
+      });
   };
 };
