@@ -1,9 +1,9 @@
 import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
-  inc,
-  dec,
-  reset,
+  fetchInc,
+  fetchDec,
+  fetchReset,
   fetchDel,
   fetchChange
 } from "../service/store/actions/counterActions";
@@ -15,7 +15,7 @@ export default function Count({ count, idx }) {
     handleSubmit = e => {
       e.preventDefault();
       dispatch(fetchChange(valFromEvent, count, idx));
-      changeRef.current.value = " ";
+      changeRef.current.value = "";
     },
     handleChange = e => {
       setValFromEvent(e.target.value);
@@ -24,9 +24,9 @@ export default function Count({ count, idx }) {
   return (
     <div>
       <h2>Counter: {count.num}</h2>
-      <button onClick={() => dispatch(inc(5, idx))}>+</button>
-      <button onClick={() => dispatch(dec(5, idx))}>-</button>
-      <button onClick={() => dispatch(reset(idx))}>reset</button>
+      <button onClick={() => dispatch(fetchInc(5, count, idx))}>+</button>
+      <button onClick={() => dispatch(fetchDec(5, count, idx))}>-</button>
+      <button onClick={() => dispatch(fetchReset(0, count, idx))}>reset</button>
       <button onClick={() => dispatch(fetchDel(count, idx))}>del</button>
       <form className="change" onSubmit={handleSubmit}>
         <input

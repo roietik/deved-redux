@@ -3,6 +3,9 @@ import {
   FETCH_DEL,
   FETCH_CHANGE,
   FETCH_ADD,
+  FETCH_RESET,
+  FETCH_INC,
+  FETCH_DEC,
   ADD,
   CHANGE,
   DEC,
@@ -57,12 +60,42 @@ export const del = idx => {
   };
 };
 
+export const fetchInc = (val, obj, idx) => {
+  return dispatch => {
+    FetchApi.replaceFetch({ num: obj.num + val, id: obj.id })
+      .then(() => {
+        dispatch({
+          type: FETCH_INC,
+          payload: idx,
+          val: val
+        });
+      })
+      .catch(isError => {
+        console.log(isError);
+      });
+  };
+};
+
+export const fetchDec = (val, obj, idx) => {
+  return dispatch => {
+    FetchApi.replaceFetch({ num: obj.num - val, id: obj.id })
+      .then(() => {
+        dispatch({
+          type: FETCH_DEC,
+          payload: idx,
+          val: val
+        });
+      })
+      .catch(isError => {
+        console.log(isError);
+      });
+  };
+};
+
 export const fetchAdd = (valFromEvent, idx) => {
-  console.log("fetchAdd item", valFromEvent);
   return dispatch => {
     FetchApi.addFetch({ num: valFromEvent })
-      .then(items => {
-        console.log(" fetchAdd addFetch", items);
+      .then(() => {
         dispatch({
           type: FETCH_ADD,
           payload: idx,
@@ -75,12 +108,26 @@ export const fetchAdd = (valFromEvent, idx) => {
   };
 };
 
+export const fetchReset = (val, obj, idx) => {
+  return dispatch => {
+    FetchApi.replaceFetch({ num: val, id: obj.id })
+      .then(() => {
+        dispatch({
+          type: FETCH_RESET,
+          payload: idx,
+          val: val
+        });
+      })
+      .catch(isError => {
+        console.log(isError);
+      });
+  };
+};
+
 export const fetchChange = (valFromEvent, count, idx) => {
-  console.log("fetchChange item", valFromEvent);
   return dispatch => {
     FetchApi.replaceFetch({ num: valFromEvent, id: count.id })
-      .then(items => {
-        console.log(" fetchChange replaceFetch", items);
+      .then(() => {
         dispatch({
           type: FETCH_CHANGE,
           payload: idx,
@@ -94,11 +141,9 @@ export const fetchChange = (valFromEvent, count, idx) => {
 };
 
 export const fetchDel = (count, idx) => {
-  console.log("fetchDel item", count);
   return dispatch => {
     FetchApi.removeFetch(count)
-      .then(items => {
-        console.log(" fetchDel removeFetch", items);
+      .then(() => {
         dispatch({
           type: FETCH_DEL,
           payload: idx

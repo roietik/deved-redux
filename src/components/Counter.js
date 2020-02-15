@@ -12,7 +12,7 @@ function Counter() {
   const handleSubmit = e => {
     e.preventDefault();
     dispatch(fetchAdd(valFromEvent));
-    refAdd.current.value = " ";
+    refAdd.current.value = "";
   };
   const handleChange = e => {
     setValFromEvent(e.target.value);
