@@ -143,7 +143,6 @@ export const axiosDel = (count, idx) => dispatch => {
     });
 };
 
-// to jest inaczej bo funkcja asynchroniczna
 export const axiosAll = () => dispatch => {
   AxiosApi.getAxios()
     .then(items => {
