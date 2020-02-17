@@ -1,11 +1,11 @@
 import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
-  fetchInc,
-  fetchDec,
-  fetchReset,
-  fetchDel,
-  fetchChange
+  axiosInc,
+  axiosDec,
+  axiosReset,
+  axiosDel,
+  axiosChange
 } from "../service/store/actions/counterActions";
 
 export default function Count({ count, idx }) {
@@ -14,7 +14,7 @@ export default function Count({ count, idx }) {
     changeRef = useRef(),
     handleSubmit = e => {
       e.preventDefault();
-      dispatch(fetchChange(valFromEvent, count, idx));
+      dispatch(axiosChange(valFromEvent, count, idx));
       changeRef.current.value = "";
     },
     handleChange = e => {
@@ -24,10 +24,10 @@ export default function Count({ count, idx }) {
   return (
     <div>
       <h2>Counter: {count.num}</h2>
-      <button onClick={() => dispatch(fetchInc(5, count, idx))}>+</button>
-      <button onClick={() => dispatch(fetchDec(5, count, idx))}>-</button>
-      <button onClick={() => dispatch(fetchReset(0, count, idx))}>reset</button>
-      <button onClick={() => dispatch(fetchDel(count, idx))}>del</button>
+      <button onClick={() => dispatch(axiosInc(5, count, idx))}>+</button>
+      <button onClick={() => dispatch(axiosDec(5, count, idx))}>-</button>
+      <button onClick={() => dispatch(axiosReset(0, count, idx))}>reset</button>
+      <button onClick={() => dispatch(axiosDel(count, idx))}>del</button>
       <form className="change" onSubmit={handleSubmit}>
         <input
           className="counterInput"

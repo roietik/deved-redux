@@ -2,24 +2,24 @@ import React, { useRef, useState, useEffect } from "react";
 import uuid from "react-uuid";
 import Count from "./Count";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAdd, fetchAll } from "../service/store/actions/counterActions";
+import { axiosAdd, axiosAll } from "../service/store/actions/counterActions";
 
 function Counter() {
-  const counter = useSelector(state => state.counter);
-  const [valFromEvent, setValFromEvent] = useState(" ");
-  const dispatch = useDispatch();
-  const refAdd = useRef();
-  const handleSubmit = e => {
-    e.preventDefault();
-    dispatch(fetchAdd(valFromEvent));
-    refAdd.current.value = "";
-  };
-  const handleChange = e => {
-    setValFromEvent(e.target.value);
-  };
+  const counter = useSelector(state => state.counter),
+    [valFromEvent, setValFromEvent] = useState(" "),
+    dispatch = useDispatch(),
+    refAdd = useRef(),
+    handleSubmit = e => {
+      e.preventDefault();
+      dispatch(axiosAdd(valFromEvent));
+      refAdd.current.value = "";
+    },
+    handleChange = e => {
+      setValFromEvent(e.target.value);
+    };
 
   useEffect(() => {
-    dispatch(fetchAll());
+    dispatch(axiosAll());
   }, [dispatch]);
 
   return (

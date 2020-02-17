@@ -1,11 +1,11 @@
 import {
-  FETCH_ALL,
-  FETCH_DEL,
-  FETCH_CHANGE,
-  FETCH_ADD,
-  FETCH_RESET,
-  FETCH_INC,
-  FETCH_DEC,
+  AXIOS_ALL,
+  AXIOS_DEL,
+  AXIOS_CHANGE,
+  AXIOS_ADD,
+  AXIOS_RESET,
+  AXIOS_INC,
+  AXIOS_DEC,
   ADD,
   CHANGE,
   DEC,
@@ -13,7 +13,7 @@ import {
   INC,
   RESET
 } from "./../reducers/counterReducer";
-import FetchApi from "../../api/FetchApi";
+import AxiosApi from "../../api/AxiosApi";
 
 export const inc = (num, idx) => {
   return {
@@ -60,11 +60,11 @@ export const del = idx => {
   };
 };
 
-export const fetchInc = (val, obj, idx) => dispatch => {
-  FetchApi.replaceFetch({ num: obj.num + val, id: obj.id })
+export const axiosInc = (val, obj, idx) => dispatch => {
+  AxiosApi.replaceAxios({ num: obj.num + val, id: obj.id })
     .then(() => {
       dispatch({
-        type: FETCH_INC,
+        type: AXIOS_INC,
         payload: idx,
         val: val
       });
@@ -74,11 +74,11 @@ export const fetchInc = (val, obj, idx) => dispatch => {
     });
 };
 
-export const fetchDec = (val, obj, idx) => dispatch => {
-  FetchApi.replaceFetch({ num: obj.num - val, id: obj.id })
+export const axiosDec = (val, obj, idx) => dispatch => {
+  AxiosApi.replaceAxios({ num: obj.num - val, id: obj.id })
     .then(() => {
       dispatch({
-        type: FETCH_DEC,
+        type: AXIOS_DEC,
         payload: idx,
         val: val
       });
@@ -88,11 +88,11 @@ export const fetchDec = (val, obj, idx) => dispatch => {
     });
 };
 
-export const fetchAdd = (valFromEvent, idx) => dispatch => {
-  FetchApi.addFetch({ num: Number(valFromEvent) })
+export const axiosAdd = (valFromEvent, idx) => dispatch => {
+  AxiosApi.addAxios({ num: Number(valFromEvent) })
     .then(() => {
       dispatch({
-        type: FETCH_ADD,
+        type: AXIOS_ADD,
         payload: idx,
         valFromEvent
       });
@@ -102,11 +102,11 @@ export const fetchAdd = (valFromEvent, idx) => dispatch => {
     });
 };
 
-export const fetchReset = (val, obj, idx) => dispatch => {
-  FetchApi.replaceFetch({ num: val, id: obj.id })
+export const axiosReset = (val, obj, idx) => dispatch => {
+  AxiosApi.replaceAxios({ num: val, id: obj.id })
     .then(() => {
       dispatch({
-        type: FETCH_RESET,
+        type: AXIOS_RESET,
         payload: idx,
         val: val
       });
@@ -116,11 +116,11 @@ export const fetchReset = (val, obj, idx) => dispatch => {
     });
 };
 
-export const fetchChange = (valFromEvent, count, idx) => dispatch => {
-  FetchApi.replaceFetch({ num: Number(valFromEvent), id: count.id })
+export const axiosChange = (valFromEvent, count, idx) => dispatch => {
+  AxiosApi.replaceAxios({ num: Number(valFromEvent), id: count.id })
     .then(() => {
       dispatch({
-        type: FETCH_CHANGE,
+        type: AXIOS_CHANGE,
         payload: idx,
         valFromEvent
       });
@@ -130,11 +130,11 @@ export const fetchChange = (valFromEvent, count, idx) => dispatch => {
     });
 };
 
-export const fetchDel = (count, idx) => dispatch => {
-  FetchApi.removeFetch(count)
+export const axiosDel = (count, idx) => dispatch => {
+  AxiosApi.removeAxios(count)
     .then(() => {
       dispatch({
-        type: FETCH_DEL,
+        type: AXIOS_DEL,
         payload: idx
       });
     })
@@ -144,18 +144,18 @@ export const fetchDel = (count, idx) => dispatch => {
 };
 
 // to jest inaczej bo funkcja asynchroniczna
-export const fetchAll = () => dispatch => {
-  FetchApi.getFetch()
+export const axiosAll = () => dispatch => {
+  AxiosApi.getAxios()
     .then(items => {
       dispatch({
-        type: FETCH_ALL,
+        type: AXIOS_ALL,
         payload: items
       });
     })
     .catch(isError => {
       console.log(isError);
       dispatch({
-        type: FETCH_ALL,
+        type: AXIOS_ALL,
         payload: []
       });
     });

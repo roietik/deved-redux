@@ -7,13 +7,13 @@ export const CHANGE = "CHANGE";
 export const ADD = "ADD";
 export const DEL = "DEL";
 
-export const FETCH_ALL = "FETCH_ALL";
-export const FETCH_DEL = "FETCH_DEL";
-export const FETCH_CHANGE = "FETCH_CHANGE";
-export const FETCH_ADD = "FETCH_ADD";
-export const FETCH_RESET = "FETCH_RESET";
-export const FETCH_DEC = "FETCH_DEC";
-export const FETCH_INC = "FETCH_INC";
+export const AXIOS_ALL = "AXIOS_ALL";
+export const AXIOS_DEL = "AXIOS_DEL";
+export const AXIOS_CHANGE = "AXIOS_CHANGE";
+export const AXIOS_ADD = "AXIOS_ADD";
+export const AXIOS_RESET = "AXIOS_RESET";
+export const AXIOS_DEC = "AXIOS_DEC";
+export const AXIOS_INC = "AXIOS_INC";
 
 const initialState = {
   counts: [
@@ -34,7 +34,6 @@ const counterReducer = (state = initialState, action) => {
       );
       return { ...state, counts };
     }
-
     case DEC: {
       const counts = state.counts.map((count, idx) =>
         idx === action.idx
@@ -64,7 +63,7 @@ const counterReducer = (state = initialState, action) => {
       );
       return { ...state, counts };
     }
-    case FETCH_INC: {
+    case AXIOS_INC: {
       const counts = state.counts.map((count, idx) =>
         idx === action.payload
           ? { num: Number(count.num) + Number(action.val), id: count.id }
@@ -72,8 +71,7 @@ const counterReducer = (state = initialState, action) => {
       );
       return { ...state, counts };
     }
-
-    case FETCH_DEC: {
+    case AXIOS_DEC: {
       const counts = state.counts.map((count, idx) =>
         idx === action.payload
           ? { num: Number(count.num) - Number(action.val), id: count.id }
@@ -81,19 +79,19 @@ const counterReducer = (state = initialState, action) => {
       );
       return { ...state, counts };
     }
-    case FETCH_ADD: {
+    case AXIOS_ADD: {
       const counts = [...state.counts];
       counts.push({ num: action.valFromEvent, id: uuid() });
       return { ...state, counts };
     }
 
-    case FETCH_RESET: {
+    case AXIOS_RESET: {
       const counts = state.counts.map((count, idx) =>
         idx === action.payload ? { num: action.val, id: count.id } : count
       );
       return { ...state, counts };
     }
-    case FETCH_CHANGE: {
+    case AXIOS_CHANGE: {
       const counts = state.counts.map((count, idx) =>
         idx === action.payload
           ? { num: action.valFromEvent, id: count.id }
@@ -101,14 +99,14 @@ const counterReducer = (state = initialState, action) => {
       );
       return { ...state, counts };
     }
-    case FETCH_DEL: {
+    case AXIOS_DEL: {
       const counts = state.counts.filter((_, idx) => idx !== action.payload);
       return {
         ...state,
         counts: counts
       };
     }
-    case FETCH_ALL: {
+    case AXIOS_ALL: {
       return {
         ...state,
         counts: action.payload
